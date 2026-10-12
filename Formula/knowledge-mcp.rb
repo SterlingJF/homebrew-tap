@@ -4,14 +4,14 @@ class KnowledgeMcp < Formula
 
   desc "Help agent apps read, write and bring in knowledge with universe specs"
   homepage "https://github.com/SterlingJF/knowledge-mcp"
-  url "https://github.com/SterlingJF/knowledge-mcp/releases/download/v0.2.0/knowledge_mcp-0.2.0.tar.gz"
-  sha256 "9ce1445a4d5e59010fcf5d052dafad675b4a77eb509f87573a5268d5f51d395c"
+  url "https://github.com/SterlingJF/knowledge-mcp/releases/download/v0.2.1/knowledge_mcp-0.2.1.tar.gz"
+  sha256 "8629d425c9627eb14847c105500cc92b836bf843ce98fc367008b466ac7d1676"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/SterlingJF/knowledge-mcp/releases/download/v0.2.0"
-    sha256 cellar: :any, arm64_sequoia: "c66cfc05bbcaca5f6620959779a82a7e8dae16695560e79fe0dc037c78ba07ef"
-    sha256 cellar: :any, sequoia:       "48f880ffaa7a7dc006c036197395a21942a93e5a5d6f0f3c11032d3abf70e272"
+    root_url "https://github.com/SterlingJF/knowledge-mcp/releases/download/v0.2.1"
+    sha256 cellar: :any, arm64_sequoia: "507d99a2bb6ab6dd747423156a92204ae637f69b7b05bc77cb1c149504286809"
+    sha256 cellar: :any, sequoia:       "b1add017ae0e39e2cad8245075d17e4a311ceefbc86c84550cff346257c28750"
   end
 
   depends_on "pkgconf" => :build
