@@ -8,6 +8,12 @@ class KnowledgeMcp < Formula
   sha256 "9ce1445a4d5e59010fcf5d052dafad675b4a77eb509f87573a5268d5f51d395c"
   license "MIT"
 
+  bottle do
+    root_url "https://github.com/SterlingJF/knowledge-mcp/releases/download/v0.2.0"
+    sha256 cellar: :any, arm64_sequoia: "c66cfc05bbcaca5f6620959779a82a7e8dae16695560e79fe0dc037c78ba07ef"
+    sha256 cellar: :any, sequoia:       "48f880ffaa7a7dc006c036197395a21942a93e5a5d6f0f3c11032d3abf70e272"
+  end
+
   depends_on "pkgconf" => :build
   depends_on "rust" => :build
   depends_on "libyaml"
