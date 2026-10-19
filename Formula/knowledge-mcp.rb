@@ -2,16 +2,16 @@
 class KnowledgeMcp < Formula
   include Language::Python::Virtualenv
 
-  desc "Help agent apps read, write and bring in knowledge with universe specs"
+  desc "Help harnesses read, write and import knowledge with universe specs"
   homepage "https://github.com/SterlingJF/knowledge-mcp"
-  url "https://github.com/SterlingJF/knowledge-mcp/releases/download/v0.2.1/knowledge_mcp-0.2.1.tar.gz"
-  sha256 "8629d425c9627eb14847c105500cc92b836bf843ce98fc367008b466ac7d1676"
+  url "https://github.com/SterlingJF/knowledge-mcp/releases/download/v0.3.0/knowledge_mcp-0.3.0.tar.gz"
+  sha256 "67442c0d5ec3286c9f5475189aa047cb6c8bb920cebb57777b4a83f97552cfdb"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/SterlingJF/knowledge-mcp/releases/download/v0.2.1"
-    sha256 cellar: :any, arm64_sequoia: "507d99a2bb6ab6dd747423156a92204ae637f69b7b05bc77cb1c149504286809"
-    sha256 cellar: :any, sequoia:       "b1add017ae0e39e2cad8245075d17e4a311ceefbc86c84550cff346257c28750"
+    root_url "https://github.com/SterlingJF/knowledge-mcp/releases/download/v0.3.0"
+    sha256 cellar: :any, arm64_sequoia: "5fdae4e31902c41a643576443fb8cfe4a02791d63d6fbf79c37a28f6dde51ebb"
+    sha256 cellar: :any, sequoia:       "8b5bd58ef7d5aaaa8973d918787619bf96d089aeb6de0b1b8a81d3e02bd33cce"
   end
 
   depends_on "pkgconf" => :build
@@ -41,8 +41,8 @@ class KnowledgeMcp < Formula
   end
 
   resource "click" do
-    url "https://files.pythonhosted.org/packages/76/d4/81420972a676e8ffea40450d8c8c92943e7218a78fe9b64359836cc9876b/click-8.4.2.tar.gz"
-    sha256 "9a6cea6e60b17ebe0a44c5cc636d94f09bd66142c1cd7d8b4cd731c4917a15f6"
+    url "https://files.pythonhosted.org/packages/c7/0e/7fa0ef50764b67090eca4114772a2abf8b6148198475e54c660b97caeee6/click-8.5.0.tar.gz"
+    sha256 "ba0d2089de75ea0310e2dde03160e6ca10009947fb95a182f9b54021bb272e34"
   end
 
   resource "cryptography" do
@@ -86,13 +86,13 @@ class KnowledgeMcp < Formula
   end
 
   resource "mcp" do
-    url "https://files.pythonhosted.org/packages/74/33/32d4dff2c95bb5d897c3ef4c83649a08996b17b58f0a326d2495d4c81179/mcp-2.0.0.tar.gz"
-    sha256 "0f440e735c13ece8bb19bc62cf0b86f4313448432fbb77d35e14034f4e050728"
+    url "https://files.pythonhosted.org/packages/76/31/ac54fb0fdd5b37de704486e288bba4fbbb463f24cfcfedbede407b854513/mcp-2.2.0.tar.gz"
+    sha256 "2dc37ecb1974becdcebdbf7561e7c15a07dbbf20ba21ba16c3593b3038b3afbd"
   end
 
   resource "mcp-types" do
-    url "https://files.pythonhosted.org/packages/bb/56/9b8e1c152f61f6c6b07c4b5896c88c7d0ae90bac6ee6306f852fcc5c1eb0/mcp_types-2.0.0.tar.gz"
-    sha256 "d7d939b9285c9961ae8866ba75ef85da34d12bafe276efbf4eb6a131786d8379"
+    url "https://files.pythonhosted.org/packages/ae/91/762d7755d971aff8a28d75f7961656148edf27875c8026e6385aaab08ae7/mcp_types-2.2.0.tar.gz"
+    sha256 "d3ed53703ddd10d9c6399f29d322bb66f3f67ab41348ac8556ba23e07fedefad"
   end
 
   resource "opentelemetry-api" do
@@ -172,7 +172,7 @@ class KnowledgeMcp < Formula
 
   def install
     virtualenv_install_with_resources
-    # Host settings and skill links name opt paths, which `brew upgrade` moves to the new version.
+    # Harness settings and skill links name opt paths, which `brew upgrade` moves to the new version.
     site_packages = Language::Python.site_packages("python3.14")
     (bin/"kb").unlink
     (bin/"kb").write_env_script libexec/"bin/kb",
@@ -182,13 +182,13 @@ class KnowledgeMcp < Formula
 
   def caveats
     <<~EOS
-      Register knowledge-mcp with each agent app you use on this Mac:
+      Register knowledge-mcp with each harness you use on this Mac:
         kb setup claude-code
         kb setup codex
         kb setup claude-desktop
         kb setup pi
         kb setup opencode
-      Before `brew uninstall knowledge-mcp`, run `kb setup --remove <host>` for each app.
+      Before `brew uninstall knowledge-mcp`, run `kb setup --remove <harness>` for each harness.
       Your answer log and edit record stay after the uninstall, in $KNOWLEDGE_MCP_STATE_DIR when set,
       else $XDG_STATE_HOME/knowledge-mcp, else ~/.local/state/knowledge-mcp. `kb doctor` shows the folder in use.
     EOS
