@@ -4,20 +4,20 @@ class KnowledgeMcp < Formula
 
   desc "Help harnesses read, write and import knowledge with universe specs"
   homepage "https://github.com/SterlingJF/knowledge-mcp"
-  url "https://github.com/SterlingJF/knowledge-mcp/releases/download/v0.3.0/knowledge_mcp-0.3.0.tar.gz"
-  sha256 "67442c0d5ec3286c9f5475189aa047cb6c8bb920cebb57777b4a83f97552cfdb"
+  url "https://github.com/SterlingJF/knowledge-mcp/releases/download/v0.4.0/knowledge_mcp-0.4.0.tar.gz"
+  sha256 "f6d2be91a853e8e9a0d7356a0e31aeabce5d7f22236ad2318bd52d34d9f994f5"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/SterlingJF/knowledge-mcp/releases/download/v0.3.0"
-    sha256 cellar: :any, arm64_sequoia: "5fdae4e31902c41a643576443fb8cfe4a02791d63d6fbf79c37a28f6dde51ebb"
-    sha256 cellar: :any, sequoia:       "8b5bd58ef7d5aaaa8973d918787619bf96d089aeb6de0b1b8a81d3e02bd33cce"
+    root_url "https://github.com/SterlingJF/knowledge-mcp/releases/download/v0.4.0"
+    sha256 cellar: :any, arm64_sequoia: "166081641b5485b6b072f3aea266a61c517ebf351604358a2f5fdf5bc0884905"
+    sha256 cellar: :any, sequoia:       "f4af726f2e79997fe969d585d889d21c76ca8c5f2b1cb113239bab145726b4d9"
   end
 
   depends_on "pkgconf" => :build
   depends_on "rust" => :build
   depends_on "libyaml"
-  depends_on "openssl@3"
+  depends_on "openssl@4"
   depends_on "python@3.14"
 
   resource "annotated-types" do
@@ -68,6 +68,11 @@ class KnowledgeMcp < Formula
   resource "idna" do
     url "https://files.pythonhosted.org/packages/5f/f7/abb373e5757eaec4b922b92f97ec8d6d7e057cf06778247604fbc4e7c3f3/idna-3.19.tar.gz"
     sha256 "5e0811a4383b21dc5838069f801c4fb62113b7447663d2530d2bd6e77b49bf15"
+  end
+
+  resource "json-five" do
+    url "https://files.pythonhosted.org/packages/1a/b1/3f9e2feb61fc7d78fa6cf584477416e75ea9c9b4796a62ace787539c9a04/json_five-1.1.2.tar.gz"
+    sha256 "1c5b1bae6039bc44632d009b32338d4b59ab765c596d96577b52cc3dadc936e2"
   end
 
   resource "jsonschema" do
@@ -135,9 +140,19 @@ class KnowledgeMcp < Formula
     sha256 "44aefc3142c5b842538163acb373e24cce6632bd54bdb01b21ad5863489f50d8"
   end
 
+  resource "regex" do
+    url "https://files.pythonhosted.org/packages/fc/f2/af1da9d3ceed77bfcdce40427d49ba0be94e4fe84245e3bfef68c10e75b6/regex-2026.9.29.tar.gz"
+    sha256 "8b5fcc4771732191b2b7d1dd68d8f0353f47f8d90b6150f6dce58bf1112442cb"
+  end
+
   resource "rpds-py" do
     url "https://files.pythonhosted.org/packages/aa/2a/9618a122aeb2a169a28b03889a2995fe297588964333d4a7d67bdf46e147/rpds_py-2026.6.3.tar.gz"
     sha256 "1cebd1337c242e4ec2293e541f712b2da849b29f48f0c293684b71c0632625d4"
+  end
+
+  resource "sly" do
+    url "https://files.pythonhosted.org/packages/41/8a/59e943f7b27904c7756a7b565ffbd55f3841f5cd3d2da2b2b0713c49e488/sly-0.5.tar.gz"
+    sha256 "251d42015e8507158aec2164f06035df4a82b0314ce6450f457d7125e7649024"
   end
 
   resource "sse-starlette" do
@@ -178,6 +193,7 @@ class KnowledgeMcp < Formula
     (bin/"kb").write_env_script libexec/"bin/kb",
                                 KNOWLEDGE_MCP_COMMAND: opt_bin/"kb",
                                 KNOWLEDGE_MCP_DATA:    opt_libexec/site_packages/"knowledge_mcp"
+    generate_completions_from_executable(bin/"kb", shell_parameter_format: :click)
   end
 
   def caveats
@@ -195,6 +211,9 @@ class KnowledgeMcp < Formula
   end
 
   test do
+    assert_path_exists bash_completion/"kb"
+    assert_path_exists zsh_completion/"_kb"
+    assert_path_exists fish_completion/"kb.fish"
     assert_match "kb #{version}", shell_output("#{bin}/kb --version")
     assert_match "Knowledge Bus", shell_output("#{bin}/kb kbp --version")
     initialize = { jsonrpc: "2.0", id: 1, method: "initialize",
